@@ -31,6 +31,23 @@ TEST(test_fill_basic) {
   delete mat; // delete the Matrix
 }
 
+
+
+TEST(test_matrix_print) {
+  Matrix *mat = new Matrix;
+  Matrix_init(mat, 1, 1);
+
+  *Matrix_at(mat, 0, 0) = 42;
+  ostringstream expected;
+  expected << "1 1\n"
+           << "42 \n";
+  ostringstream actual;
+  Matrix_print(mat, actual);
+  ASSERT_EQUAL(expected.str(), actual.str());
+
+  delete mat;
+}
+
 // ADD YOUR TESTS HERE
 // You are encouraged to use any functions from Matrix_test_helpers.h as needed.
 
