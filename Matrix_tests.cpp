@@ -31,8 +31,6 @@ TEST(test_fill_basic) {
   delete mat; // delete the Matrix
 }
 
-
-
 TEST(test_matrix_print) {
   Matrix *mat = new Matrix;
   Matrix_init(mat, 1, 1);
@@ -46,6 +44,81 @@ TEST(test_matrix_print) {
   ASSERT_EQUAL(expected.str(), actual.str());
 
   delete mat;
+}
+
+TEST(test_matrix_width) {
+    Matrix *mat = new Matrix;
+    
+    Matrix_init(mat, 3, 5);
+    
+    ASSERT_EQUAL(Matrix_width(mat), 3);
+    
+    delete mat;
+}
+
+TEST(test_matrix_height) {
+    Matrix *mat = new Matrix;
+    
+    Matrix_init(mat, 3, 5);
+    
+    ASSERT_EQUAL(Matrix_height(mat), 5);
+    
+    delete mat;
+}
+
+TEST(test_matrix_row) {
+    Matrix *mat = new Matrix;
+    
+    Matrix_init(mat, 5, 3);
+    int* ptr = Matrix_at(mat, 2, 2);
+    
+    ASSERT_EQUAL(Matrix_row(mat, ptr), 2);
+    
+    delete mat;
+}
+
+TEST(test_matrix_column) {
+    Matrix *mat = new Matrix;
+    
+    Matrix_init(mat, 5, 3);
+    int* const ptr = Matrix_at(mat, 2, 4);
+    
+    ASSERT_EQUAL(Matrix_column(mat, ptr), 4);
+    
+    delete mat;
+}
+
+TEST(test_matrix_fill_border) {
+    Matrix *mat = new Matrix;
+    
+    const int width = 3;
+    const int height = 5;
+    const int value = 42;
+    Matrix_init(mat, 3, 5);
+    Matrix_fill_border(mat, value);
+
+    for (int r = 0; r < height; ++r){
+      for (int c = 0; c < width; ++c){
+          if (r == 0 || r == (Matrix_height(mat) - 1) || c == 0 || c == (Matrix_width(mat) - 1))    {
+              ASSERT_EQUAL(*Matrix_at(mat, r, c), value);
+          }
+      }
+    }
+    
+    delete mat;
+}
+
+TEST(test_matrix_max) {
+    Matrix *mat = new Matrix;
+    
+    const int value = 1;
+    Matrix_init(mat, 5, 3);
+    Matrix_fill(mat, value);
+    *Matrix_at(mat, 2, 4) = 2;
+    
+    ASSERT_EQUAL(Matrix_max(mat), 2);
+    
+    delete mat;
 }
 
 // ADD YOUR TESTS HERE
