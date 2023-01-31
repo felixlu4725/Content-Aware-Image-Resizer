@@ -123,7 +123,23 @@ void compute_energy_matrix(const Image* img, Matrix* energy) {
 //           computed and written into it.
 //           See the project spec for details on computing the cost matrix.
 void compute_vertical_cost_matrix(const Matrix* energy, Matrix *cost) {
-  assert(false); // TODO Replace with your implementation!
+    Matrix_init(cost, Matrix_width(energy), Matrix_height(energy));
+    for (int c = 0; c < Matrix_width(cost); ++ c)   {
+        *Matrix_at(cost, 0, c) = *Matrix_at(energy, 0, c);
+    }
+    for (int r = 1; r < Matrix_height(cost); ++ r)  {
+        for (int c = 0; c < Matrix_width(cost); ++ c)   {
+            if (c == 0) {
+                *Matrix_at(cost, r, c) = *Matrix_at(energy, r, c) + Matrix_min_value_in_row(cost, r - 1, c, c + 1);
+            }
+            else if (c == Matrix_width(cost) - 1)   {
+                *Matrix_at(cost, r, c) = *Matrix_at(energy, r, c) + Matrix_min_value_in_row(cost, r - 1, c - 1, c);
+            }
+            else    {
+                *Matrix_at(cost, r, c) = *Matrix_at(energy, r, c) + Matrix_min_value_in_row(cost, r - 1, c - 1, c + 1);
+            }
+        }
+    }
 }
 
 
@@ -143,7 +159,16 @@ void compute_vertical_cost_matrix(const Matrix* energy, Matrix *cost) {
 //           with the bottom of the image and proceeding to the top,
 //           as described in the project spec.
 void find_minimal_vertical_seam(const Matrix* cost, int seam[]) {
-  assert(false); // TODO Replace with your implementation!
+    int i = -1;
+    seam[i] = Matrix_column_of_min_value_in_row(cost, Matrix_height(cost) - 1, 0, Matrix_width(cost) - 1);
+    
+    for (int r = Matrix_height(cost) - 2; r >= 0; --r)  {
+        int c = seam[i];
+        if (c == 0)  {
+            seam[i] = Matrix_column_of_min_value_in_row(cost, r - 1, c, c + 1);
+            i -= 1;
+        }
+    }
 }
 
 
