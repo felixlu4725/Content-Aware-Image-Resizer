@@ -47,7 +47,7 @@ TEST(test_print_basic) {
 // IMPLEMENT YOUR TEST FUNCTIONS HERE
 // You are encouraged to use any functions from Image_test_helpers.h as needed.
 
-TEST(test_image_print) {
+TEST(test_print_edge) {
   Image *img = new Image;
   Image_init(img, 1, 1);
 
@@ -65,20 +65,50 @@ TEST(test_image_print) {
   delete img;
 }
 
+TEST(test_image_init) {
+  Image *img = new Image;
+  Image_init(img, 1, 1);
+
+  ASSERT_EQUAL(Matrix_width(&img->red_channel), 1);
+  ASSERT_EQUAL(Matrix_width(&img->red_channel), 1);
+  ASSERT_EQUAL(Matrix_width(&img->green_channel), 1);
+  ASSERT_EQUAL(Matrix_width(&img->green_channel), 1);
+  ASSERT_EQUAL(Matrix_width(&img->blue_channel), 1);
+  ASSERT_EQUAL(Matrix_width(&img->blue_channel), 1);
+
+  delete img;
+}
+
+TEST(test_image_init_edge) {
+  Image *img = new Image;
+  string input = "P3 2 2\t255 255 0 0\n0\n255 0 \n0 0 255 255 255 255 \n";
+  std::istringstream ss_input(input);
+  Image_init(img, ss_input);
+
+  string output_correct = "P3\n2 2\n255\n255 0 0 0 255 0 \n0 0 255 255 255 255 \n";
+  std::ostringstream ss_output;
+  Image_print(img, ss_output);
+  string actual = ss_output.str();
+  std::cout << actual << std::endl;
+  ASSERT_EQUAL(actual, output_correct);
+
+  delete img;
+}
+
 TEST(test_image_width) {
   Image *img = new Image;
-  Image_init(img, 1, 2);
+  Image_init(img, 255, 255);
 
-  ASSERT_EQUAL(Image_width(img), 1);
+  ASSERT_EQUAL(Image_width(img), 255);
 
   delete img;
 }
 
 TEST(test_image_height) {
   Image *img = new Image;
-  Image_init(img, 1, 2);
+  Image_init(img, 255, 255);
 
-  ASSERT_EQUAL(Image_height(img), 2);
+  ASSERT_EQUAL(Image_height(img), 255);
 
   delete img;
 }
@@ -142,3 +172,4 @@ TEST(test_image_fill) {
 // when there is a semicolon. Therefore do NOT add a semicolon
 // after TEST_MAIN()
 TEST_MAIN() // Do NOT put a semicolon here
+
