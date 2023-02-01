@@ -49,6 +49,16 @@ TEST(test_fill_edge) {
     delete mat;
 }
 
+TEST(test_init) {
+    Matrix *mat = new Matrix;
+
+    Matrix_init(mat, 1, 1);
+    ASSERT_EQUAL(Matrix_width(mat), 1);
+    ASSERT_EQUAL(Matrix_height(mat), 1);
+    
+    delete mat;
+}
+
 TEST(test_print_basic) {
     Matrix *mat = new Matrix;
     Matrix_init(mat, 3, 3);
