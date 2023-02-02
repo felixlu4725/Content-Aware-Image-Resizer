@@ -227,7 +227,7 @@ void seam_carve_width(Image *img, int newWidth) {
 
   delete energy;
   delete cost;
-  delete seam;
+  delete[] seam;
 }
 
 // REQUIRES: img points to a valid Image

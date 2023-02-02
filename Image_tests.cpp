@@ -69,12 +69,8 @@ TEST(test_image_init) {
   Image *img = new Image;
   Image_init(img, 1, 1);
 
-  ASSERT_EQUAL(Matrix_width(&img->red_channel), 1);
-  ASSERT_EQUAL(Matrix_width(&img->red_channel), 1);
-  ASSERT_EQUAL(Matrix_width(&img->green_channel), 1);
-  ASSERT_EQUAL(Matrix_width(&img->green_channel), 1);
-  ASSERT_EQUAL(Matrix_width(&img->blue_channel), 1);
-  ASSERT_EQUAL(Matrix_width(&img->blue_channel), 1);
+  ASSERT_EQUAL(Image_width(img), 1);
+  ASSERT_EQUAL(Image_height(img), 1);
 
   delete img;
 }
