@@ -152,19 +152,19 @@ void compute_vertical_cost_matrix(const Matrix* energy, Matrix *cost) {
 void find_minimal_vertical_seam(const Matrix* cost, int seam[]) {
     int i = Matrix_height(cost) - 1;
     seam[i] = Matrix_column_of_min_value_in_row(cost, Matrix_height(cost) - 1, 0, Matrix_width(cost) - 1);
-    i -= 1;
+    i -= 1; 
     for (int r = Matrix_height(cost) - 2; r >= 0; --r)  {
         int c = seam[i + 1];
         if (c == 0)  {
-            seam[i] = Matrix_column_of_min_value_in_row(cost, r, c, c + 1);
+            seam[i] = Matrix_column_of_min_value_in_row(cost, r, c, c + 2);
             i -= 1;
         }
         else if (c == Matrix_width(cost) - 1) {
-            seam[i] = Matrix_column_of_min_value_in_row(cost, r, c - 1, c);
+            seam[i] = Matrix_column_of_min_value_in_row(cost, r, c - 1, c + 1);
             i -= 1;
         }
         else    {
-            seam[i] = Matrix_column_of_min_value_in_row(cost, r, c - 1, c + 1);
+            seam[i] = Matrix_column_of_min_value_in_row(cost, r, c - 1, c + 2);
             i -= 1;
         }
     }

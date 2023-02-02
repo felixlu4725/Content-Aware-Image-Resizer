@@ -28,8 +28,8 @@ void Matrix_init(Matrix* mat, int width, int height) {
 //           the end of each line.
 void Matrix_print(const Matrix* mat, std::ostream& os) {
     os << Matrix_width(mat) << " " << Matrix_height(mat) << std::endl;
-    for (int r = 0; r < Matrix_width(mat); ++r) {
-        for (int c = 0; c < Matrix_height(mat); ++c)    {
+    for (int r = 0; r < Matrix_height(mat); ++r) {
+        for (int c = 0; c < Matrix_width(mat); ++c)    {
             os << *Matrix_at(mat, r, c) << " ";
         }
         os << std::endl;
@@ -201,7 +201,7 @@ int Matrix_column_of_min_value_in_row(const Matrix* mat, int row,
                                       int column_start, int column_end) {
     int min = *Matrix_at(mat, row, column_start);
     int min_index = column_start;
-    for (int c = column_start; c <= column_end; ++c)    {
+    for (int c = column_start; c < column_end; ++c)    {
         if (*Matrix_at(mat, row, c) < min)  {
             min = *Matrix_at(mat, row, c);
             min_index = c;
