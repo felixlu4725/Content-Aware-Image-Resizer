@@ -121,13 +121,13 @@ void compute_vertical_cost_matrix(const Matrix* energy, Matrix *cost) {
     for (int r = 1; r < Matrix_height(cost); ++ r)  {
         for (int c = 0; c < Matrix_width(cost); ++ c)   {
             if (c == 0) {
-                *Matrix_at(cost, r, c) = *Matrix_at(energy, r, c) + Matrix_min_value_in_row(cost, r - 1, c, c + 1);
+                *Matrix_at(cost, r, c) = *Matrix_at(energy, r, c) + Matrix_min_value_in_row(cost, r - 1, c, c + 2);
             }
             else if (c == Matrix_width(cost) - 1)   {
-                *Matrix_at(cost, r, c) = *Matrix_at(energy, r, c) + Matrix_min_value_in_row(cost, r - 1, c - 1, c);
+                *Matrix_at(cost, r, c) = *Matrix_at(energy, r, c) + Matrix_min_value_in_row(cost, r - 1, c - 1, c + 1);
             }
             else    {
-                *Matrix_at(cost, r, c) = *Matrix_at(energy, r, c) + Matrix_min_value_in_row(cost, r - 1, c - 1, c + 1);
+                *Matrix_at(cost, r, c) = *Matrix_at(energy, r, c) + Matrix_min_value_in_row(cost, r - 1, c - 1, c + 2);
             }
         }
     }
@@ -220,6 +220,9 @@ void seam_carve_width(Image *img, int newWidth) {
 
   while (Image_width(img) > newWidth) {
     remove_vertical_seam(img, seam);
+    compute_energy_matrix(img, energy);
+    compute_vertical_cost_matrix(energy, cost);
+    find_minimal_vertical_seam(cost, seam);
   }
 
   delete energy;

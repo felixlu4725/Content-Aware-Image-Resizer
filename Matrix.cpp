@@ -59,8 +59,8 @@ int Matrix_height(const Matrix* mat) {
 //           ptr points to an element in the Matrix
 // EFFECTS:  Returns the row of the element pointed to by ptr.
 int Matrix_row(const Matrix* mat, const int* ptr) {
-    for (int r = 0; r < mat->width; ++r)    {
-        for (int c = 0; c < mat->height; ++c)  {
+    for (int r = 0; r < mat->height; ++r)    {
+        for (int c = 0; c < mat->width; ++c)  {
             if (ptr == Matrix_at(mat, r, c))    {
                 return r;
             }
@@ -238,7 +238,7 @@ int Matrix_min_value_in_row(const Matrix* mat, int row,
     assert(0 <= column_start && column_end <= mat->width);
     
     int min = *Matrix_at(mat, row, column_start);
-    for (int c = column_start; c <= column_end; ++c)    {
+    for (int c = column_start; c < column_end; ++c)    {
         if (*Matrix_at(mat, row, c) < min)  {
             min = *Matrix_at(mat, row, c);
         }
