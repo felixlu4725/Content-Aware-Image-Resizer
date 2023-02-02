@@ -91,12 +91,6 @@ static int squared_difference(Pixel p1, Pixel p2) {
 void compute_energy_matrix(const Image* img, Matrix* energy) {
     Matrix_init(energy, Image_width(img), Image_height(img));
     Matrix_fill(energy, 0);
-    Pixel pn = Image_get_pixel(img, 0, 1);
-    Pixel ps = Image_get_pixel(img, 2, 1);
-    Pixel pw = Image_get_pixel(img, 1, 0);
-    Pixel pe = Image_get_pixel(img, 1, 2);
-    int max = squared_difference(pn, ps) + squared_difference(pw, pe);
-    
     for (int r = 1; r < Matrix_height(energy) - 1; ++r) {
         for (int c = 1; c < Matrix_width(energy) - 1; ++c)  {
             Pixel pn = Image_get_pixel(img, r - 1, c);
@@ -104,12 +98,9 @@ void compute_energy_matrix(const Image* img, Matrix* energy) {
             Pixel pw = Image_get_pixel(img, r, c - 1);
             Pixel pe = Image_get_pixel(img, r, c + 1);
             *Matrix_at(energy, r, c) = squared_difference(pn, ps) + squared_difference(pw, pe);
-            if (*Matrix_at(energy, r, c) > max) {
-                max = *Matrix_at(energy, r, c);
-            }
         }
     }
-    Matrix_fill_border(energy, max);
+    Matrix_fill_border(energy, Matrix_max(energy));
 }
 
 
