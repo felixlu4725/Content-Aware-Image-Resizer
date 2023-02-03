@@ -28,8 +28,8 @@ void Matrix_init(Matrix* mat, int width, int height) {
 //           the end of each line.
 void Matrix_print(const Matrix* mat, std::ostream& os) {
     os << Matrix_width(mat) << " " << Matrix_height(mat) << std::endl;
-    for (int r = 0; r < Matrix_height(mat); ++r) {
-        for (int c = 0; c < Matrix_width(mat); ++c)    {
+    for (int r = 0; r < Matrix_height(mat); r++) {
+        for (int c = 0; c < Matrix_width(mat); c++)    {
             os << *Matrix_at(mat, r, c) << " ";
         }
         os << std::endl;
@@ -59,8 +59,8 @@ int Matrix_height(const Matrix* mat) {
 //           ptr points to an element in the Matrix
 // EFFECTS:  Returns the row of the element pointed to by ptr.
 int Matrix_row(const Matrix* mat, const int* ptr) {
-    for (int r = 0; r < Matrix_height(mat); ++r)    {
-        for (int c = 0; c < Matrix_width(mat); ++c)  {
+    for (int r = 0; r < Matrix_height(mat); r++)    {
+        for (int c = 0; c < Matrix_width(mat); c++)  {
             if (ptr == Matrix_at(mat, r, c))    {
                 return r;
             }
@@ -79,8 +79,8 @@ int Matrix_row(const Matrix* mat, const int* ptr) {
 //           ptr point to an element in the Matrix
 // EFFECTS:  Returns the column of the element pointed to by ptr.
 int Matrix_column(const Matrix* mat, const int* ptr) {
-    for (int r = 0; r < Matrix_height(mat); ++r)    {
-        for (int c = 0; c < Matrix_width(mat); ++c)  {
+    for (int r = 0; r < Matrix_height(mat); r++)    {
+        for (int c = 0; c < Matrix_width(mat); c++)  {
             if (ptr == Matrix_at(mat, r, c))    {
                 return c;
             }
@@ -131,8 +131,8 @@ const int* Matrix_at(const Matrix* mat, int row, int column) {
 // MODIFIES: *mat
 // EFFECTS:  Sets each element of the Matrix to the given value.
 void Matrix_fill(Matrix* mat, int value) {
-    for (int r = 0; r < Matrix_height(mat); ++r) {
-        for (int c = 0; c < Matrix_width(mat); ++c) {
+    for (int r = 0; r < Matrix_height(mat); r++) {
+        for (int c = 0; c < Matrix_width(mat); c++) {
             *Matrix_at(mat, r, c) = value;
         }
     }
@@ -147,8 +147,8 @@ void Matrix_fill(Matrix* mat, int value) {
 //           the given value. These are all elements in the first/last
 //           row or the first/last column.
 void Matrix_fill_border(Matrix* mat, int value) {
-    for (int r = 0; r < Matrix_height(mat); ++r) {
-        for (int c = 0; c < Matrix_width(mat); ++c) {
+    for (int r = 0; r < Matrix_height(mat); r++) {
+        for (int c = 0; c < Matrix_width(mat); c++) {
             if (r == 0 || r == (Matrix_height(mat) - 1) 
                 || c == 0 || c == (Matrix_width(mat) - 1))   {
                 *Matrix_at(mat, r, c) = value;
@@ -171,8 +171,8 @@ int Matrix_max(const Matrix* mat) {
     
     int max = *Matrix_at(mat, 0, 0);
     
-    for (int r = 0; r < Matrix_height(mat); ++r) {
-        for (int c = 0; c < Matrix_width(mat); ++c)    {
+    for (int r = 0; r < Matrix_height(mat); r++) {
+        for (int c = 0; c < Matrix_width(mat); c++)    {
             if (*Matrix_at(mat, r, c) > max) {
                 max = *Matrix_at(mat, r, c);
             }
@@ -202,9 +202,11 @@ int Matrix_column_of_min_value_in_row(const Matrix* mat, int row,
                                       int column_start, int column_end) {
     assert(0 <= row && row < Matrix_height(mat));
     assert(0 <= column_start && column_end <= Matrix_width(mat));
+    assert(column_start < column_end);
+
     int min = *Matrix_at(mat, row, column_start);
     int min_index = column_start;
-    for (int c = column_start; c < column_end; ++c)    {
+    for (int c = column_start; c < column_end; c++)    {
         if (*Matrix_at(mat, row, c) < min)  {
             min = *Matrix_at(mat, row, c);
             min_index = c;
@@ -239,9 +241,10 @@ int Matrix_min_value_in_row(const Matrix* mat, int row,
                             int column_start, int column_end) {
     assert(0 <= row && row < Matrix_height(mat));
     assert(0 <= column_start && column_end <= Matrix_width(mat));
+    assert(column_start < column_end);
     
     int min = *Matrix_at(mat, row, column_start);
-    for (int c = column_start; c < column_end; ++c)    {
+    for (int c = column_start; c < column_end; c++)    {
         if (*Matrix_at(mat, row, c) < min)  {
             min = *Matrix_at(mat, row, c);
         }
