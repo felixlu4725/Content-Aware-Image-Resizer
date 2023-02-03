@@ -361,6 +361,28 @@ TEST(test_min_value_edge2) {
     delete mat;
 }
 
+TEST(test_matrix_at) {
+    Matrix *mat = new Matrix;
+    
+    Matrix_init(mat, 1, 1);
+    *Matrix_at(mat, 0, 0) = 3;
+
+    ASSERT_EQUAL(*Matrix_at(mat, 0, 0), 3);
+    
+    delete mat;
+}
+
+TEST(test_matrix_at_const) {
+    Matrix *mat = new Matrix;
+    
+    Matrix_init(mat, 1, 1);
+    *Matrix_at(mat, 0, 0) = 3;
+
+    ASSERT_EQUAL(*Matrix_at(mat, 0, 0), 3);
+    
+    delete mat;
+}
+
 // NOTE: The unit test framework tutorial in Lab 2 originally
 // had a semicolon after TEST_MAIN(). Although including and
 // excluding the semicolon are both correct according to the c++
