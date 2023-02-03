@@ -77,11 +77,11 @@ TEST(test_image_init) {
 
 TEST(test_image_init_edge) {
   Image *img = new Image;
-  string input = "P3 2 2\t255 255 0 0\n0\n255 0 \n0 0 255 255 255 255 \n";
+  string input = "P3 2 2\t255 5 0 1\n0\n255 \n0 \n0 0 90 \t255 \n255 \t45 \n";
   std::istringstream ss_input(input);
   Image_init(img, ss_input);
 
-  string output_correct = "P3\n2 2\n255\n255 0 0 0 255 0 \n0 0 255 255 255 255 \n";
+  string output_correct = "P3\n2 2\n255\n5 0 1 0 255 0 \n0 0 90 255 255 45 \n";
   std::ostringstream ss_output;
   Image_print(img, ss_output);
   string actual = ss_output.str();
