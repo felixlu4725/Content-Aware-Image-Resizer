@@ -331,7 +331,7 @@ TEST(test_column_of_min_edge2) {
     Matrix_init(mat, 1, 1);
     *Matrix_at(mat, 0, 0) = 3;
 
-    ASSERT_EQUAL(Matrix_column_of_min_value_in_row(mat, 0, 0, 0), 0);
+    ASSERT_EQUAL(Matrix_column_of_min_value_in_row(mat, 0, 0, 1), 0);
     
     delete mat;
 }
@@ -369,7 +369,7 @@ TEST(test_min_value_edge2) {
     Matrix_init(mat, 1, 1);
     *Matrix_at(mat, 0, 0) = 3;
 
-    ASSERT_EQUAL(Matrix_min_value_in_row(mat, 0, 0, 0), 3);
+    ASSERT_EQUAL(Matrix_min_value_in_row(mat, 0, 0, 1), 3);
     
     delete mat;
 }
