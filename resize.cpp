@@ -13,6 +13,7 @@ int main(int argc, char *argv[]) {
     ifstream fin(input);
     if (!fin.is_open()) {
         cout << "ERROR: UNABLE TO OPEN FILE";
+        return 1;
     }
 
     string output = argv[2];
