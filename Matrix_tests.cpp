@@ -49,12 +49,22 @@ TEST(test_fill_edge) {
     delete mat;
 }
 
-TEST(test_init) {
+TEST(test_init1) {
     Matrix *mat = new Matrix;
 
     Matrix_init(mat, 1, 1);
     ASSERT_EQUAL(Matrix_width(mat), 1);
     ASSERT_EQUAL(Matrix_height(mat), 1);
+    
+    delete mat;
+}
+
+TEST(test_init2) {
+    Matrix *mat = new Matrix;
+
+    Matrix_init(mat, 3, 5);
+    ASSERT_EQUAL(Matrix_width(mat), 3);
+    ASSERT_EQUAL(Matrix_height(mat), 5);
     
     delete mat;
 }
@@ -78,7 +88,7 @@ TEST(test_print_basic) {
     delete mat;
 }
 
-TEST(test_print_edge) {
+TEST(test_print_edge1) {
     Matrix *mat = new Matrix;
     Matrix_init(mat, 1, 1);
 
@@ -86,6 +96,25 @@ TEST(test_print_edge) {
     ostringstream expected;
     expected << "1 1\n"
            << "42 \n";
+    ostringstream actual;
+    Matrix_print(mat, actual);
+    ASSERT_EQUAL(expected.str(), actual.str());
+
+    delete mat;
+}
+
+TEST(test_print_edge2) {
+    Matrix *mat = new Matrix;
+    Matrix_init(mat, 2, 3);
+    Matrix_fill(mat, 1);
+    
+    *Matrix_at(mat, 0, 0) = 2;
+    ostringstream expected;
+    expected << "2 3\n"
+            << "2 1 \n"
+            << "1 1 \n"
+            << "1 1 \n";
+    
     ostringstream actual;
     Matrix_print(mat, actual);
     ASSERT_EQUAL(expected.str(), actual.str());
