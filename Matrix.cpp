@@ -59,8 +59,8 @@ int Matrix_height(const Matrix* mat) {
 //           ptr points to an element in the Matrix
 // EFFECTS:  Returns the row of the element pointed to by ptr.
 int Matrix_row(const Matrix* mat, const int* ptr) {
-    for (int r = 0; r < mat->height; ++r)    {
-        for (int c = 0; c < mat->width; ++c)  {
+    for (int r = 0; r < Matrix_height(mat); ++r)    {
+        for (int c = 0; c < Matrix_width(mat); ++c)  {
             if (ptr == Matrix_at(mat, r, c))    {
                 return r;
             }
@@ -104,8 +104,8 @@ int Matrix_column(const Matrix* mat, const int* ptr) {
 // EFFECTS:  Returns a pointer to the element in the Matrix
 //           at the given row and column.
 int* Matrix_at(Matrix* mat, int row, int column) {
-    assert(0 <= row && row < mat->height);
-    assert(0 <= column && column < mat->width);
+    assert(0 <= row && row < Matrix_height(mat));
+    assert(0 <= column && column < Matrix_width(mat));
     
     int index = row * mat->width + column;
     int* ptr = &(mat->data[index]);
@@ -119,8 +119,8 @@ int* Matrix_at(Matrix* mat, int row, int column) {
 // EFFECTS:  Returns a pointer-to-const to the element in
 //           the Matrix at the given row and column.
 const int* Matrix_at(const Matrix* mat, int row, int column) {
-    assert(0 <= row && row < mat->height);
-    assert(0 <= column && column < mat->width);
+    assert(0 <= row && row < Matrix_height(mat));
+    assert(0 <= column && column < Matrix_width(mat));
     
     int index = row * mat->width + column;
     const int* ptr = &(mat->data[index]);
@@ -200,6 +200,8 @@ int Matrix_max(const Matrix* mat) {
 //           the leftmost one.
 int Matrix_column_of_min_value_in_row(const Matrix* mat, int row,
                                       int column_start, int column_end) {
+    assert(0 <= row && row < Matrix_height(mat));
+    assert(0 <= column_start && column_end <= Matrix_width(mat));
     int min = *Matrix_at(mat, row, column_start);
     int min_index = column_start;
     for (int c = column_start; c < column_end; ++c)    {
@@ -235,8 +237,8 @@ int Matrix_column_of_min_value_in_row(const Matrix* mat, int row,
 //           column_start (inclusive) and column_end (exclusive).
 int Matrix_min_value_in_row(const Matrix* mat, int row,
                             int column_start, int column_end) {
-    assert(0 <= row && row < mat->height);
-    assert(0 <= column_start && column_end <= mat->width);
+    assert(0 <= row && row < Matrix_height(mat));
+    assert(0 <= column_start && column_end <= Matrix_width(mat));
     
     int min = *Matrix_at(mat, row, column_start);
     for (int c = column_start; c < column_end; ++c)    {

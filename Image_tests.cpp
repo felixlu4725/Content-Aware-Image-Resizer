@@ -93,18 +93,18 @@ TEST(test_image_init_edge) {
 
 TEST(test_image_width) {
   Image *img = new Image;
-  Image_init(img, 255, 255);
+  Image_init(img, 1, 2);
 
-  ASSERT_EQUAL(Image_width(img), 255);
+  ASSERT_EQUAL(Image_width(img), 1);
 
   delete img;
 }
 
 TEST(test_image_height) {
   Image *img = new Image;
-  Image_init(img, 255, 255);
+  Image_init(img, 1, 2);
 
-  ASSERT_EQUAL(Image_height(img), 255);
+  ASSERT_EQUAL(Image_height(img), 2);
 
   delete img;
 }
