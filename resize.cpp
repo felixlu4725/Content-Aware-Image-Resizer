@@ -19,7 +19,6 @@ int main(int argc, char *argv[]) {
     ofstream fout(output);
 
     int newWidth = atoi(argv[3]);
-    int newHeight;
     
     Image *img = new Image;
     Image_init(img, fin);
@@ -36,7 +35,7 @@ int main(int argc, char *argv[]) {
         Image_print(img, fout);
     }
 
-    if (argc == 4) {
+    else if (argc == 4) {
         if (!(newWidth > 0 && newWidth <= Image_width(img))) {
             cout << "Usage: resize.exe IN_FILENAME OUT_FILENAME WIDTH [HEIGHT]\n"
             << "WIDTH and HEIGHT must be less than or equal to original" << endl;
