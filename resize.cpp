@@ -20,31 +20,38 @@ int main(int argc, char *argv[]) {
 
     int newWidth = atoi(argv[3]);
     int newHeight;
-    if (argc == 5) {
-        newHeight = atoi(argv[4]);
-    }
     
     Image *img = new Image;
     Image_init(img, fin);
+    
+    if (argc == 5) {
+        int newHeight = atoi(argv[4]);
+        if (!(newWidth > 0 && newWidth <= Image_width(img))
+            || !(newHeight > 0 && newHeight <= Image_height(img))) {
+            cout << "Usage: resize.exe IN_FILENAME OUT_FILENAME WIDTH [HEIGHT]\n"
+            << "WIDTH and HEIGHT must be less than or equal to original" << endl;
+            return 1;
+        }
+        seam_carve(img, newWidth, newHeight);
+        Image_print(img, fout);
+    }
 
     if (argc == 4) {
         if (!(newWidth > 0 && newWidth <= Image_width(img))) {
             cout << "Usage: resize.exe IN_FILENAME OUT_FILENAME WIDTH [HEIGHT]\n"
-            << "WIDTH and HEIGHT must be less than or equal to original" << endl;     
-            return 1;       
+            << "WIDTH and HEIGHT must be less than or equal to original" << endl;
+            return 1;
         }
+        seam_carve(img, newWidth, Image_height(img));
+        Image_print(img, fout);
     }
-    if (argc == 5) {
-        if (!(newWidth > 0 && newWidth <= Image_width(img)) 
-            || !(newHeight > 0 && newHeight <= Image_height(img))) {
-            cout << "Usage: resize.exe IN_FILENAME OUT_FILENAME WIDTH [HEIGHT]\n"
-            << "WIDTH and HEIGHT must be less than or equal to original" << endl;   
-            return 1;          
-        }   
+    
+    else    {
+        cout << "ERROR: COMMAND LINE";
+        return 1;
     }
-    seam_carve(img, newWidth, newHeight);
-    Image_print(img, fout);
 
     delete img;
     fin.close();
+    return 0;
 }
