@@ -284,6 +284,19 @@ TEST(test_max_edge2) {
     delete mat;
 }
 
+TEST(test_max_edge3) {
+    Matrix *mat = new Matrix;
+    
+    const int value = -1;
+    Matrix_init(mat, 3, 3);
+    Matrix_fill(mat, -2);
+    *Matrix_at(mat, 0, 0) = value;
+    
+    ASSERT_EQUAL(Matrix_max(mat), -1);
+    
+    delete mat;
+}
+
 
 TEST(test_column_of_min_basic) {
     Matrix *mat = new Matrix;
