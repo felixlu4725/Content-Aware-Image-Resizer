@@ -149,7 +149,8 @@ void Matrix_fill(Matrix* mat, int value) {
 void Matrix_fill_border(Matrix* mat, int value) {
     for (int r = 0; r < Matrix_height(mat); ++r) {
         for (int c = 0; c < Matrix_width(mat); ++c) {
-            if (r == 0 || r == (Matrix_height(mat) - 1) || c == 0 || c == (Matrix_width(mat) - 1))   {
+            if (r == 0 || r == (Matrix_height(mat) - 1) 
+                || c == 0 || c == (Matrix_width(mat) - 1))   {
                 *Matrix_at(mat, r, c) = value;
             }
         }

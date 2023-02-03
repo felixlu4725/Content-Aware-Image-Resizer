@@ -62,7 +62,8 @@ void Image_print(const Image* img, std::ostream& os) {
 
   for (int r = 0; r < Image_height(img); r++) {
     for (int c = 0; c < Image_width(img); c++) {
-       os << Image_get_pixel(img, r, c).r << " " << Image_get_pixel(img, r, c).g << " " << Image_get_pixel(img, r, c).b << " ";
+      os << Image_get_pixel(img, r, c).r << " " 
+        << Image_get_pixel(img, r, c).g << " " << Image_get_pixel(img, r, c).b << " ";
     }
     os << std::endl;
   }

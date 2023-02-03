@@ -97,7 +97,8 @@ void compute_energy_matrix(const Image* img, Matrix* energy) {
             Pixel ps = Image_get_pixel(img, r + 1, c);
             Pixel pw = Image_get_pixel(img, r, c - 1);
             Pixel pe = Image_get_pixel(img, r, c + 1);
-            *Matrix_at(energy, r, c) = squared_difference(pn, ps) + squared_difference(pw, pe);
+            *Matrix_at(energy, r, c) = 
+              squared_difference(pn, ps) + squared_difference(pw, pe);
         }
     }
     Matrix_fill_border(energy, Matrix_max(energy));
@@ -121,13 +122,16 @@ void compute_vertical_cost_matrix(const Matrix* energy, Matrix *cost) {
     for (int r = 1; r < Matrix_height(cost); ++ r)  {
         for (int c = 0; c < Matrix_width(cost); ++ c)   {
             if (c == 0) {
-                *Matrix_at(cost, r, c) = *Matrix_at(energy, r, c) + Matrix_min_value_in_row(cost, r - 1, c, c + 2);
+                *Matrix_at(cost, r, c) = *Matrix_at(energy, r, c) 
+                  + Matrix_min_value_in_row(cost, r - 1, c, c + 2);
             }
             else if (c == Matrix_width(cost) - 1)   {
-                *Matrix_at(cost, r, c) = *Matrix_at(energy, r, c) + Matrix_min_value_in_row(cost, r - 1, c - 1, c + 1);
+                *Matrix_at(cost, r, c) = *Matrix_at(energy, r, c) 
+                  + Matrix_min_value_in_row(cost, r - 1, c - 1, c + 1);
             }
             else    {
-                *Matrix_at(cost, r, c) = *Matrix_at(energy, r, c) + Matrix_min_value_in_row(cost, r - 1, c - 1, c + 2);
+                *Matrix_at(cost, r, c) = *Matrix_at(energy, r, c) 
+                  + Matrix_min_value_in_row(cost, r - 1, c - 1, c + 2);
             }
         }
     }
@@ -151,7 +155,8 @@ void compute_vertical_cost_matrix(const Matrix* energy, Matrix *cost) {
 //           as described in the project spec.
 void find_minimal_vertical_seam(const Matrix* cost, int seam[]) {
     int i = Matrix_height(cost) - 1;
-    seam[i] = Matrix_column_of_min_value_in_row(cost, Matrix_height(cost) - 1, 0, Matrix_width(cost) - 1);
+    seam[i] = Matrix_column_of_min_value_in_row
+      (cost, Matrix_height(cost) - 1, 0, Matrix_width(cost) - 1);
     i -= 1; 
     for (int r = Matrix_height(cost) - 2; r >= 0; --r)  {
         int c = seam[i + 1];
