@@ -15,9 +15,3 @@ Demo
 ![image](https://github.com/user-attachments/assets/3793a4e2-c47f-4ef3-9c35-7959ef2cd7af)
 
 By Felix Lu <felixlu@umich.edu>
-
-## Quick start
-```console
-$ python3 -m venv env/
-$ source env/bin/activate
-```
