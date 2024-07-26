@@ -1,7 +1,7 @@
-Content-Aware Image Resizer	![image](https://github.com/user-attachments/assets/af899b74-2fbe-4c23-b471-98a13f30f55a)
-
+Content-Aware Image Resizer
 ===========================
-Templated Static Site Generator
+An advanced content-aware, image resizing program utilizing seam carving algorithm in C++ that allows image to be scaled without losing/distorting meaningful image landmarks
+
 
 By Felix Lu <felixlu@umich.edu>
 
