@@ -1,13 +1,16 @@
 Content-Aware Image Resizer
 ===========================
-You are an adventurous gold miner. However, in your avarice you’ve ignored several safe-tunneling practices, and a recent earthquake has left you trapped! Luckily, out of paranoia, you always carry ridiculous quantities of dynamite sticks with you. You need to blast your way out and make the most of each dynamite stick by blasting the piles of rubble which take the fewest sticks to destroy.
+An advanced content-aware, image resizing program utilizing seam carving algorithm in C++ that allows image to be scaled without losing/distorting meaningful image landmarks. This is implemented according to the [naive bayes algorithm](http://graphics.cs.cmu.edu/courses/15-463/2007_fall/hw/proj2/imret.pdf).
 
-The mine you are trapped in can be represented with a 2-dimensional grid. There are 2 types of tiles:
+## Demo
+Original Image: 479x382
+![image](https://github.com/user-attachments/assets/328c27a7-2c37-48d0-9f48-4fd6c1522fd6)
 
-Tiles containing rubble: Think of cleared tiles as containing 0 rubble. A tile in the mine could contain 0 before you clear it, that means that it never contained rubble
+Resized Image: 300x382
+![image](https://github.com/user-attachments/assets/1abdb871-52bd-432f-8c5c-b94b4d34c43e)
 
-Tiles containing TNT: All tiles touching the TNT tile are also “cleared”. If a TNT tile is touching another TNT tile, this will cause a chain explosion.
+Resized Image: 400x250
+![image](https://github.com/user-attachments/assets/0da7087a-75a9-4fcb-a851-2a293f326d7f)
 
-You (the miner) start on a specified tile. At every iteration, you will attempt to blast away the “easiest” tile you can “access”, until you escape!
 
 By Felix Lu <felixlu@umich.edu>
