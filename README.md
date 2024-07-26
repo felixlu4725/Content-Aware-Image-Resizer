@@ -4,6 +4,8 @@ An advanced content-aware, image resizing program utilizing seam carving algorit
 
 Demo
 ===========================
+
+#Original Image
 ![image](https://github.com/user-attachments/assets/64fc3bcc-cd5d-4e82-96a2-b178f9ad7d5d)
 
 By Felix Lu <felixlu@umich.edu>
