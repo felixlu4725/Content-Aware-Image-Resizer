@@ -1,4 +1,5 @@
-EECS 280 Project 2 Solution
+Content-Aware Image Resizer	![image](https://github.com/user-attachments/assets/af899b74-2fbe-4c23-b471-98a13f30f55a)
+
 ===========================
 Templated Static Site Generator
 
