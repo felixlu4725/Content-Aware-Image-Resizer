@@ -1,18 +1,10 @@
 #ifndef IMAGE_H
 #define IMAGE_H
 
-/* Image.h
- * Project UID af1f95f547e44c8ea88730dfb185559d
- * Originally written by James Juett at the University of Michigan
- * for project 3 in EECS 280, Winter 2016.
- */
-
 #include <iostream>
 #include "Matrix.h"
 
-// Representation of an RGB Pixel used for
-// parameter passing and returns by the
-// Image module. This is a POD type.
+// Struct representing an RGB pixel with red, green, and blue components.
 struct Pixel {
   int r;
   int g;
@@ -21,8 +13,7 @@ struct Pixel {
 
 const int MAX_INTENSITY = 255;
 
-// Representation of 2D RGB image.
-// Image objects may be copied.
+// Struct representing a 2D RGB image with three color matrices.
 struct Image {
   int width;
   int height;
@@ -31,66 +22,45 @@ struct Image {
   Matrix blue_channel;
 };
 
-// REQUIRES: img points to an Image
-//           0 < width && width <= MAX_MATRIX_WIDTH
-//           0 < height && height <= MAX_MATRIX_HEIGHT
-// MODIFIES: *img
-// EFFECTS:  Initializes the Image with the given width and height.
-// NOTE:     Do NOT use new or delete here.
+// REQUIREMENTS: 'img' is a valid pointer to an Image
+//               Dimensions must be within allowed range
+// MODIFIES: Image object referenced by 'img'
+// PURPOSE:  Initializes an Image with the given dimensions.
 void Image_init(Image* img, int width, int height);
 
-// REQUIRES: img points to an Image
-//           is contains an image in PPM format without comments
-//           (any kind of whitespace is ok)
-// MODIFIES: *img
-// EFFECTS:  Initializes the Image by reading in an image in PPM format
-//           from the given input stream.
-// NOTE:     See the project spec for a discussion of PPM format.
-// NOTE:     Do NOT use new or delete here.
+// REQUIREMENTS: 'img' points to a valid Image
+//               'is' is an input stream containing a PPM image (without comments)
+// MODIFIES: Image object referenced by 'img'
+// PURPOSE:  Reads a PPM image from the input stream and initializes 'img'.
 void Image_init(Image* img, std::istream& is);
 
-// REQUIRES: img points to a valid Image
-// MODIFIES: os
-// EFFECTS:  Writes the image to the given output stream in PPM format.
-//           You must use the kind of whitespace specified here.
-//           First, prints out the header for the image like this:
-//             P3 [newline]
-//             WIDTH [space] HEIGHT [newline]
-//             255 [newline]
-//           Next, prints out the rows of the image, each followed by a
-//           newline. Each pixel in a row is printed as three ints
-//           for its red, green, and blue components, in that order. Each
-//           int is followed by a space. This means that there will be an
-//           "extra" space at the end of each line. See the project spec
-//           for an example.
+// REQUIREMENTS: 'img' points to a valid Image
+// MODIFIES: The provided output stream
+// PURPOSE:  Outputs the Image as a PPM-formatted stream with required spacing.
 void Image_print(const Image* img, std::ostream& os);
 
-// REQUIRES: img points to a valid Image
-// EFFECTS:  Returns the width of the Image.
+// REQUIREMENTS: 'img' is a valid Image instance
+// PURPOSE:  Retrieves the width of the Image.
 int Image_width(const Image* img);
 
-// REQUIRES: img points to a valid Image
-// EFFECTS:  Returns the height of the Image.
+// REQUIREMENTS: 'img' is a valid Image instance
+// PURPOSE:  Retrieves the height of the Image.
 int Image_height(const Image* img);
 
-// REQUIRES: img points to a valid Image
-//           0 <= row && row < Image_height(img)
-//           0 <= column && column < Image_width(img)
-// EFFECTS:  Returns the pixel in the Image at the given row and column.
-// NOTE:     Do NOT use new or delete here.
+// REQUIREMENTS: 'img' is a valid Image instance
+//               'row' and 'column' are within bounds
+// PURPOSE:  Retrieves the pixel at the specified position.
 Pixel Image_get_pixel(const Image* img, int row, int column);
 
-// REQUIRES: img points to a valid Image
-//           0 <= row && row < Image_height(img)
-//           0 <= column && column < Image_width(img)
-// MODIFIES: *img
-// EFFECTS:  Sets the pixel in the Image at the given row and column
-//           to the given color.
+// REQUIREMENTS: 'img' is a valid Image instance
+//               'row' and 'column' are within bounds
+// MODIFIES: The specified pixel in the Image
+// PURPOSE:  Updates the pixel at the given position.
 void Image_set_pixel(Image* img, int row, int column, Pixel color);
 
-// REQUIRES: img points to a valid Image
-// MODIFIES: *img
-// EFFECTS:  Sets each pixel in the image to the given color.
+// REQUIREMENTS: 'img' is a valid Image instance
+// MODIFIES: Entire Image
+// PURPOSE:  Fills the Image with the specified color.
 void Image_fill(Image* img, Pixel color);
 
 #endif // IMAGE_H
