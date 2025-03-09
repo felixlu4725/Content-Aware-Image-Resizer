@@ -1,4 +1,3 @@
-
 # Compiler
 CXX ?= g++
 
@@ -13,26 +12,26 @@ test: Matrix_public_test.exe Matrix_tests.exe Image_public_test.exe Image_tests.
 	./resize.exe dog.ppm dog_4x5.out.ppm 4 5
 	diff dog_4x5.out.ppm dog_4x5.correct.ppm
 
-Matrix_public_test.exe: Matrix_public_test.cpp Matrix.cpp Matrix_test_helpers.cpp
+Matrix_public_test.exe: tests/Matrix_public_test.cpp src/Matrix.cpp tests/Matrix_test_helpers.cpp
 	$(CXX) $(CXXFLAGS) $^ -o $@
 
-Matrix_tests.exe: Matrix_tests.cpp Matrix.cpp Matrix_test_helpers.cpp
+Matrix_tests.exe: tests/Matrix_tests.cpp src/Matrix.cpp tests/Matrix_test_helpers.cpp
 	$(CXX) $(CXXFLAGS) $^ -o $@
 
-Image_public_test.exe: Image_public_test.cpp Matrix.cpp Image.cpp \
-			Matrix_test_helpers.cpp Image_test_helpers.cpp
+Image_public_test.exe: tests/Image_public_test.cpp src/Matrix.cpp src/Image.cpp \
+			tests/Matrix_test_helpers.cpp tests/Image_test_helpers.cpp
 	$(CXX) $(CXXFLAGS) $^ -o $@
 
-Image_tests.exe: Image_tests.cpp Matrix.cpp Image.cpp Matrix_test_helpers.cpp \
-			Image_test_helpers.cpp
+Image_tests.exe: tests/Image_tests.cpp src/Matrix.cpp src/Image.cpp tests/Matrix_test_helpers.cpp \
+			tests/Image_test_helpers.cpp
 	$(CXX) $(CXXFLAGS) $^ -o $@
 
-processing_public_tests.exe: processing_public_tests.cpp Matrix.cpp \
-				Image.cpp processing.cpp \
-				Matrix_test_helpers.cpp Image_test_helpers.cpp
+processing_public_tests.exe: tests/processing_public_tests.cpp src/Matrix.cpp \
+				src/Image.cpp src/processing.cpp \
+				tests/Matrix_test_helpers.cpp tests/Image_test_helpers.cpp
 	$(CXX) $(CXXFLAGS) $^ -o $@
 
-resize.exe: resize.cpp Matrix.cpp Image.cpp processing.cpp
+resize.exe: src/resize.cpp src/Matrix.cpp src/Image.cpp src/processing.cpp
 	$(CXX) $(CXXFLAGS) $^ -o $@
 
 # Disable built-in Makefile rules
@@ -45,12 +44,12 @@ clean:
 CPD ?= /usr/um/pmd-6.0.1/bin/run.sh cpd
 OCLINT ?= /usr/um/oclint-0.13/bin/oclint
 FILES := \
-  Image.cpp \
-  Image_tests.cpp \
-  Matrix.cpp \
-  Matrix_tests.cpp \
-  processing.cpp \
-  resize.cpp
+  src/Image.cpp \
+  tests/Image_tests.cpp \
+  src/Matrix.cpp \
+  tests/Matrix_tests.cpp \
+  src/processing.cpp \
+  src/resize.cpp
 style :
 	$(OCLINT) \
     -no-analytics \
