@@ -15,6 +15,7 @@ An advanced content-aware, image resizing program utilizing seam carving algorit
 ### Prerequisites
 
 - C++ compiler supporting C++11 standard
+- openCV
 
 ### Building the Project
 
