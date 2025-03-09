@@ -1,10 +1,4 @@
 
-/* Matrix_test_helpers.cpp
- * Project UID af1f95f547e44c8ea88730dfb185559d
- * Originally written by James Juett at the University of Michigan
- * for project 3 in EECS 280, Winter 2016.
- */
-
 #include "Matrix_test_helpers.h"
 
 bool Matrix_equal(const Matrix* mat1, const Matrix* mat2){
