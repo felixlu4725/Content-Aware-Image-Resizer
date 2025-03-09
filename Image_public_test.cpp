@@ -1,5 +1,3 @@
-// Project UID af1f95f547e44c8ea88730dfb185559d
-
 #include "Image.h"
 #include "Image_test_helpers.h"
 #include "unit_test_framework.h"
@@ -7,14 +5,6 @@
 #include <string>
 
 using std::string;
-
-
-// This is the public Image test for which the autograder gives feedback.
-// It only tests VERY FEW of the expected behaviors of the Image module.
-// It will only really tell you if your code compiles and you remembered to
-// write the functions. It is not to be trusted. It tells the truth, but not
-// the whole truth. It might put you in a blender. You get the point.
-// You must write your own comprehensive unit tests in Image_tests.cpp!
 
 
 TEST(test_image_basic) {
