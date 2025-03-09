@@ -1,4 +1,3 @@
-// Project UID af1f95f547e44c8ea88730dfb185559dmake
 
 #include <iostream>
 #include <fstream>
