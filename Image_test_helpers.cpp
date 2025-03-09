@@ -1,10 +1,4 @@
 
-/* Image_test_helpers.cpp
- * Project UID af1f95f547e44c8ea88730dfb185559d
- * Originally written by James Juett at the University of Michigan
- * for project 3 in EECS 280, Winter 2016.
- */
-
 #include "Image_test_helpers.h"
 
 bool Pixel_equal(Pixel p1, Pixel p2){
