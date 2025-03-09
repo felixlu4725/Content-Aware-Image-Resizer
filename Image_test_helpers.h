@@ -1,12 +1,6 @@
 #ifndef IMAGE_TEST_HELPERS_H
 #define IMAGE_TEST_HELPERS_H
 
-/* Image_test_helpers.h
- * Project UID af1f95f547e44c8ea88730dfb185559d
- * Originally written by James Juett at the University of Michigan
- * for project 3 in EECS 280, Winter 2016.
- */
-
 #include "Image.h"
 
 // EFFECTS: Returns true if p1 and p2 are equal. Returns false otherwise.
