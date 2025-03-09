@@ -1,15 +1,6 @@
 #ifndef MATRIX_H
 #define MATRIX_H
 
-/* Matrix.h
- * Project UID af1f95f547e44c8ea88730dfb185559d
- * Originally written by James Juett at the University of Michigan
- * for project 3 in EECS 280, Winter 2016.
- *
- * The Matrix module is based on an earlier project by
- * Andrew DeOrio.
- */
-
 #include <iostream>
 
 const int MAX_MATRIX_WIDTH = 500;
