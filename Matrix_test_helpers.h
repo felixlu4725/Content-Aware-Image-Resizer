@@ -1,12 +1,5 @@
 #ifndef MATRIX_TEST_HELPERS_H
 #define MATRIX_TEST_HELPERS_H
-
-/* Matrix_test_helpers.h
- * Project UID af1f95f547e44c8ea88730dfb185559d
- * Originally written by James Juett at the University of Michigan
- * for project 3 in EECS 280, Winter 2016.
- */
-
 #include "Matrix.h"
 
 // REQUIRES: mat1 points to a valid Matrix
