@@ -1,4 +1,3 @@
-// Project UID af1f95f547e44c8ea88730dfb185559d
 
 #ifndef PROCESSING_H
 #define PROCESSING_H
@@ -23,7 +22,7 @@ void rotate_right(Image* img);
 //           The Matrix pointed to by energy is initialized to be the same
 //           size as the given Image, and then the energy matrix for that
 //           image is computed and written into it.
-//           See the project spec for details on computing the energy matrix.
+
 void compute_energy_matrix(const Image* img, Matrix* energy);
 
 // REQUIRES: energy points to a valid Matrix.
@@ -34,7 +33,7 @@ void compute_energy_matrix(const Image* img, Matrix* energy);
 //           The Matrix pointed to by cost is initialized to be the same
 //           size as the given energy Matrix, and then the cost matrix is
 //           computed and written into it.
-//           See the project spec for details on computing the cost matrix.
+
 void compute_vertical_cost_matrix(const Matrix* energy, Matrix *cost);
 
 // REQUIRES: cost points to a valid Matrix
@@ -49,7 +48,7 @@ void compute_vertical_cost_matrix(const Matrix* energy, Matrix *cost);
 //           (bottom of image). While determining the seam, if any pixels
 //           tie for lowest cost, the leftmost one (i.e. with the lowest
 //           column number) is used.
-//           See the project spec for details on computing the minimal seam.
+
 void find_minimal_vertical_seam(const Matrix* cost, int seam[]);
 
 // REQUIRES: img points to a valid Image
@@ -62,14 +61,14 @@ void find_minimal_vertical_seam(const Matrix* cost, int seam[]);
 //           pixel will be removed from every row in the image. The pixel
 //           removed from row r will be the one with column equal to seam[r].
 //           The width of the image will be one less than before.
-//           See the project spec for details on removing a vertical seam.
+
 void remove_vertical_seam(Image *img, const int seam[]);
 
 // REQUIRES: img points to a valid Image
 //           0 < newWidth <= Image_width(img)
 // MODIFIES: *img
 // EFFECTS:  Reduces the width of the given Image to be newWidth by using
-//           the seam carving algorithm. See the spec for details.
+//           the seam carving algorithm. 
 void seam_carve_width(Image *img, int newWidth);
 
 // REQUIRES: img points to a valid Image
