@@ -1,5 +1,3 @@
-# Makefile
-# Build rules for EECS 280 project 2
 
 # Compiler
 CXX ?= g++
