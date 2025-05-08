@@ -2,6 +2,8 @@ Content-Aware Image Resizer
 ===========================
 An advanced content-aware, image resizing program utilizing seam carving algorithm in C++ that allows image to be scaled without losing/distorting meaningful image landmarks. This is implemented according to the seam carving algorithm described in [Avidan & Shamir, 2007](http://graphics.cs.cmu.edu/courses/15-463/2007_fall/hw/proj2/imret.pdf) which finds the path of least energy density for removal by computing a energy matrix mapping to the image.
 
+## Demo
+https://youtu.be/6NcIJXTlugc?si=uzvCckZjN1mEtiLQ
 
 ## Features
 
