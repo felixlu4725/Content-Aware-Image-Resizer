@@ -2,10 +2,8 @@ An advanced content-aware, image resizing program utilizing seam carving algorit
 
 ## Demo
 
-[![Demo Video](<img width="956" alt="Screenshot 2025-05-07 at 5 05 54 PM" src="https://github.com/user-attachments/assets/9e0e3dff-fc91-44d7-bad3-23cb704402f1" />)](https://youtu.be/6NcIJXTlugc?si=X4j7mg86IgCCMPYV)
 
-
-
+[![Demo Video](http://img.youtube.com/vi/X4j7mg86IgCCMPYV.jpg)](https://youtu.be/6NcIJXTlugc?si=X4j7mg86IgCCMPYV)
 
 ## Features
 
