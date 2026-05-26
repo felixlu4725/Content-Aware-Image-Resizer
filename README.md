@@ -1,69 +1,118 @@
-An advanced content-aware, image resizing program utilizing seam carving algorithm in C++ that allows image to be scaled without losing/distorting meaningful image landmarks. This is implemented according to the seam carving algorithm described in [Avidan & Shamir, 2007](http://graphics.cs.cmu.edu/courses/15-463/2007_fall/hw/proj2/imret.pdf) which finds the path of least energy density for removal by computing a energy matrix mapping to the image.
+# Content-Aware Image Resizer
 
-## Demo
+A C++ implementation of the seam carving algorithm for content-aware image resizing. Instead of uniform scaling or cropping, the program identifies and removes low-energy paths through the image, preserving visually important content like edges and subjects.
 
-[![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/6NcIJXTlugc/0.jpg)](https://www.youtube.com/watch?v=6NcIJXTlugc)
+Based on the paper [Seam Carving for Content-Aware Image Resizing](http://graphics.cs.cmu.edu/courses/15-463/2007_fall/hw/proj2/imret.pdf) by Avidan & Shamir (2007).
 
-## Features
+## Demo Video
 
-- **Seam Carving Algorithm**: Intelligently resizes images by removing or adding seams based on content importance.
-- **Customizable Energy Functions**: Utilizes Sobel filtering for edge detection; easily extendable for custom energy functions.
-- **Command-Line Interface**: Provides flexibility for batch processing and integration into workflows.
-- **Visualization of Seam Removal**: Optionally displays the seam removal process for better understanding.
+[![Seam Carving Demo](https://img.youtube.com/vi/qadw0BRKeMk/0.jpg)](https://www.youtube.com/watch?v=qadw0BRKeMk)
 
-## Installation
+<!-- Add a GIF here showing seam removal in real time, e.g.:
+![Seam removal animation](docs/seam_removal.gif)
+Tip: record your terminal with asciinema or screen-capture the program running with display=1 -->
 
-### Prerequisites
+## Results
 
-- C++ compiler supporting C++11 standard
-- openCV
+![Waterfall scene — original and progressive width reductions](docs/image.png)
 
-### Building the Project
+![Japanese art — before and after content-aware resizing](docs/image%20copy%202.png)
 
-1. **Clone the repository**:
+![Butterfly — original, energy map, and resized outputs](docs/image%20copy.png)
 
-   ```bash
-   git clone https://github.com/felixlu4725/Content-Aware-Image-Resizer.git
-   cd Content-Aware-Image-Resizer
+![Dolphin — algorithm stages: original, energy map, seam overlay, and output](docs/image%20copy%203.png)
+
+## How It Works
+
+The algorithm runs the following pipeline once per seam removed:
+
+1. **Energy Computation** — Each pixel is scored by importance using its four cardinal neighbors (N/S/E/W):
+
+   ```
+   energy(r, c) = squared_diff(North, South) + squared_diff(West, East)
    ```
 
-2. **Compile the code**:
+   Border pixels, which lack one or more neighbors, are assigned the maximum energy found in the image so they are never chosen for removal.
 
-   ```bash
-   g++ -std=c++11 -o seam_carving main.cpp -lopencv_core -lopencv_highgui -lopencv_imgcodecs -lopencv_imgproc
+2. **Cost Matrix** — Dynamic programming accumulates the minimum-energy cost to reach each pixel from the top row:
+
+   ```
+   cost(r, c) = energy(r, c) + min(cost(r-1, c-1), cost(r-1, c), cost(r-1, c+1))
    ```
 
-   Ensure that OpenCV is correctly installed and linked.
+3. **Seam Identification** — Starting from the lowest-cost pixel in the bottom row, the algorithm backtracks upward always picking the minimum-cost predecessor. Ties are broken by choosing the leftmost option.
+
+4. **Seam Removal** — The identified vertical seam is removed row-by-row, producing an image one pixel narrower.
+
+5. **Iteration** — Steps 1–4 repeat until the target width is reached. For height reduction, the image is rotated 90°, width-carved, then rotated back.
+
+## Project Structure
+
+```
+Content-Aware-Image-Resizer/
+├── src/
+│   ├── Matrix.h / Matrix.cpp       # 2D matrix data structure
+│   ├── Image.h  / Image.cpp        # PPM image representation
+│   ├── processing.h / processing.cpp  # Energy map, seam finding & removal
+│   └── resize.cpp                  # Entry point / CLI
+├── tests/                          # Public and custom test suites
+├── Makefile
+└── README.md
+```
+
+## Prerequisites
+
+- C++ compiler supporting C++11 (`g++` or `clang++`)
+- `make`
+- Input images in **PPM format**
+
+## Building
+
+```bash
+git clone https://github.com/felixlu4725/Content-Aware-Image-Resizer.git
+cd Content-Aware-Image-Resizer
+make resize.exe
+```
 
 ## Usage
 
 ```bash
-./seam_carving <input_image> <output_image> <new_width> <new_height> [display]
+./resize.exe <input.ppm> <output.ppm> <new_width> [new_height]
 ```
 
-- `<input_image>`: Path to the input image file.
-- `<output_image>`: Path to save the resized image.
-- `<new_width>`: Desired width of the output image.
-- `<new_height>`: Desired height of the output image.
-- `[display]` (optional): Set to `1` to display the seam removal process; defaults to `0`.
+| Argument | Description |
+|---|---|
+| `input.ppm` | Path to the source PPM image |
+| `output.ppm` | Path for the resized output image |
+| `new_width` | Target width in pixels (≤ original width) |
+| `new_height` | *(Optional)* Target height in pixels (≤ original height) |
 
 ### Example
 
 ```bash
-./seam_carving input.jpg output.jpg 800 600 1
+./resize.exe dog.ppm dog_small.ppm 400 300
 ```
 
-This command resizes `input.jpg` to 800x600 pixels and displays the seam removal process.
+## Running Tests
 
-## How It Works
+```bash
+make test
+```
 
-1. **Compute Energy Map**: Calculates the energy of each pixel using the Sobel operator to detect edges.
-2. **Find Optimal Seams**: Applies dynamic programming to identify the seams with the lowest energy.
-3. **Remove or Insert Seams**: Adjusts the image dimensions by removing or inserting seams based on the desired size.
-4. **Output Processed Image**: Saves and optionally displays the resized image.
+This builds and runs the full test suite, including public tests for `Matrix`, `Image`, and `processing`, plus a regression check against a reference output.
 
+## Algorithm Details
 
+| Component | Approach |
+|---|---|
+| Energy function | Dual-gradient — squared RGB differences of N/S and E/W neighbors |
+| Border pixels | Assigned max energy to prevent border removal |
+| Cost matrix | Row-major DP accumulation from top row |
+| Tie-breaking | Leftmost minimum-cost predecessor chosen |
+| Horizontal resizing | 90° rotation + vertical seam removal + rotation back |
+| Image format | PPM (Portable Pixmap) |
+| Recommended max input | ~1000×1000 px (seam carving is O(w×h) per seam) |
 
+---
 
-
-By Felix Lu <felixlu@umich.edu>
+By Felix Lu — felixlu@umich.edu
